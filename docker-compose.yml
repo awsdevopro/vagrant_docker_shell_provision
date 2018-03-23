@@ -1,0 +1,57 @@
+version: '2'
+services:
+  nginx-proxy:
+    image: jwilder/nginx-proxy
+    container_name: nginx-proxy
+    restart: always
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    networks:
+      - ronsvpn
+  apache2:
+    image: nmrony/apache-php5
+    container_name: apache2
+    restart: always
+    volumes:
+      - ./pub_html:/var/www/html
+#      - settings/apache2/sites-enabled:/etc/apache2/sites-enabled:ro
+#      - settings/apache2/sites-available:/etc/apache2/sites-available:ro
+#      - settings/apache2/apache2.conf:/etc/apache2/apache2.conf:ro
+    networks:
+      - ronsvpn
+    environment:
+      - VIRTUAL_HOST=brodi.local
+    expose:
+      - "80"
+  mysql:
+    container_name: mysql
+    image: mysql:5.5
+    restart: always
+    volumes:
+      - /mysql:/var/lib/mysql
+    environment:
+      MYSQL_USER: root
+      MYSQL_ROOT_PASSWORD: test    
+    ports:
+      - "3306:3306"
+    networks:
+      - ronsvpn
+  pma:
+    image: phpmyadmin/phpmyadmin
+    container_name: pma
+    restart: always
+    ports:
+      - "8080:80"
+    environment:
+      - PMA_HOSTS=mysql
+    networks:
+      - ronsvpn
+    depends_on:
+      - mysql
+networks:
+  ronsvpn:
+    external: true
+
