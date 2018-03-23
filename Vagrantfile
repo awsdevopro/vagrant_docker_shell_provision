@@ -4,15 +4,15 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
  
   config.vm.box = "ubuntu/xenial64"
   config.vm.box_check_update = false
-  config.vm.define "brodi-devbox" do |devbox|
-    devbox.vm.hostname = "brodi-devbox"
+  config.vm.define "public_devbox" do |devbox|
+    devbox.vm.hostname = "public_devbox"
     devbox.vm.network "public_network", bridge: "wlp1s0"
   end
   config.vm.synced_folder "./", "/vagrant"
 
   config.vm.provider "virtualbox" do |vb|
     vb.memory = 4096
-    vb.name = "brodi-devbox"
+    vb.name = "public_devbox"
     vb.cpus = 4
     vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
     vb.customize ["modifyvm", :id, "--natdnsproxy1", "on"]

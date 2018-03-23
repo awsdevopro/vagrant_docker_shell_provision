@@ -24,5 +24,5 @@ curl -SsL "https://github.com/docker/compose/releases/download/1.20.0/docker-com
 sudo mv ./docker-compose /usr/local/bin/docker-compose && \
 sudo chmod +x /usr/local/bin/docker-compose && \
 echo 'Creating Docker bridge network...'
-sudo docker network create -d bridge ronsvpn
+sudo docker network create -d bridge pub_vpn 
 
