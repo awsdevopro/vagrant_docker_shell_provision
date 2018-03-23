@@ -23,11 +23,7 @@ services:
     networks:
       - ronsvpn
     environment:
-<<<<<<< HEAD
       - VIRTUAL_HOST=test.local
-=======
-      - VIRTUAL_HOST=brodi.local
->>>>>>> 19f18928c28f7279390a36df51c3c6be9edf64ba
     expose:
       - "80"
   mysql:
